@@ -16,6 +16,28 @@
                 <div class="card shadow">
                     <div class="card-body">
                         <h2 class="text-center">Login</h2>
+                        <?php
+                        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+
+                            $sql = "SELECT * FROM users WHERE email = ?";
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->bindParam(':email' $email);
+                            $stmt->execute();
+                            $result = $stmt->get_result();
+                            $user = $result->fetch_assoc();
+
+                            if($user && password_verify($password, $user['password'])){
+                                $_SESSION['user_id'] = $user['id'];
+                                $_SESSION['role'] = $user['role'];
+                                echo "<div class = 'alert alert-sucessful'>Login sucessful! <a href='index.php'>Go Home</a></div>";
+                            } else {
+                                echo "<div class= 'alert alert-danger'>Invalid email or password</div>";
+                            }
+
+                        }
+                        ?>
 
                         <form method="POST">
                             <div class="mb-3">
