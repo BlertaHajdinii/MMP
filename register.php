@@ -23,6 +23,14 @@
                             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
                             $sql = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
+                            $stmt = $pdo ->prepare($sql);
+                            $stmt->bind_param('sss', $email, $name, $password);
+
+                            if($stmt->execute()){
+                                echo "<div class='alert alert-sucessful'>Registration sucessful! <a href='login.php'>Login here</a></div>";
+                            } else {
+                                echo "<div class = 'alert alert-danger'>Error: " .$stmt->error . "</div>";
+                            }
                         }
                         
                         ?>
