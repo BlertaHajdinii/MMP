@@ -16,6 +16,17 @@
                     <div class="card body">
                         <h2 class="text-center">Regiser</h2>
 
+                        <?php
+                        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+                            $name = $_POST['name'];
+                            $email = $_POST['email'];
+                            $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+                            $sql = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
+                        }
+                        
+                        ?>
+
                         <form method="POST">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Name</label>
