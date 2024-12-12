@@ -13,7 +13,7 @@
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow">
-                    <div class="card body">
+                    <div class="card-body">
                         <h2 class="text-center">Regiser</h2>
 
                         <?php
@@ -23,8 +23,8 @@
                             $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
                             $sql = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
-                            $stmt = $pdo ->prepare($sql);
-                            $stmt->bind_param('sss', $email, $name, $password);
+                            $stmt = $pdo->prepare($sql);
+                            $stmt->bind_param('sss', $name, $email, $password);
 
                             if($stmt->execute()){
                                 echo "<div class='alert alert-sucessful'>Registration sucessful! <a href='login.php'>Login here</a></div>";
